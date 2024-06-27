@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 4500;
+const jwtSecret = process.env.JWT_SECRET;
+
 require("./db/config");
 const user = require('./db/User');
 const cors = require('cors');

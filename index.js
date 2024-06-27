@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 4500;
 require("./db/config");
 const user = require('./db/User');
 const cors = require('cors');
@@ -156,4 +157,4 @@ app.get('/search/:key', async (req, resp) => {
     resp.send(result);
 
 })
-app.listen(4500); 
+app.listen(PORT); 

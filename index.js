@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require('express');
 const app = express();
-require("dotenv").config();
 const PORT = process.env.PORT || 4500;
 const jwtKey = process.env.JWT_SECRET;
 require("./db/config");

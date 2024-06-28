@@ -56,31 +56,6 @@ app.post('/register', async (req, resp) => {
     }
 });
 
-// app.post('/login', async (req, resp) => {
-
-//     if (req.body.email && req.body.password) {
-
-//         let User = await user.findOne(req.body).select('-password');
-//         if (User) {
-//             Jwt.sign({ User }, jwtKey, (err, token) => {
-//                 if (err) {
-//                     resp.send({ result: ' Something wrong try after same time' });
-//                 }
-//                 // console.log(token);
-//                 resp.send({ User, auth: token });
-//             });
-//             // resp.send(User);
-//         } else {
-//             resp.send({ result: ' User Not found' });
-//         }
-//     } else {
-//         resp.send({ result: ' Missing data' });
-//     }
-
-
-
-// });
-
 app.post('/login', async (req, resp) => {
     if (req.body.email && req.body.password) {
         let User = await user.findOne(req.body).select('-password');

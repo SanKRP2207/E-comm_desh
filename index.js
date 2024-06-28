@@ -1,14 +1,13 @@
 const express = require('express');
 const app = express();
+require("dotenv").config();
 const PORT = process.env.PORT || 4500;
-const jwtSecret = process.env.JWT_SECRET;
-
+const jwtKey = process.env.JWT_SECRET;
 require("./db/config");
 const user = require('./db/User');
 const cors = require('cors');
 app.use(cors());
 const Jwt = require('jsonwebtoken');
-const jwtKey = 'e-commerse';
 const multer = require('multer');
 const path = require('path');
 
@@ -57,31 +56,48 @@ app.post('/register', async (req, resp) => {
     }
 });
 
+// app.post('/login', async (req, resp) => {
+
+//     if (req.body.email && req.body.password) {
+
+//         let User = await user.findOne(req.body).select('-password');
+//         if (User) {
+//             Jwt.sign({ User }, jwtKey, (err, token) => {
+//                 if (err) {
+//                     resp.send({ result: ' Something wrong try after same time' });
+//                 }
+//                 // console.log(token);
+//                 resp.send({ User, auth: token });
+//             });
+//             // resp.send(User);
+//         } else {
+//             resp.send({ result: ' User Not found' });
+//         }
+//     } else {
+//         resp.send({ result: ' Missing data' });
+//     }
+
+
+
+// });
+
 app.post('/login', async (req, resp) => {
-
     if (req.body.email && req.body.password) {
-
         let User = await user.findOne(req.body).select('-password');
         if (User) {
             Jwt.sign({ User }, jwtKey, (err, token) => {
                 if (err) {
-                    resp.send({ result: ' Something wrong try after same time' });
+                    return resp.send({ result: 'Something went wrong, try again later.' });
                 }
-                // console.log(token);
-                resp.send({ User, auth: token });
+                return resp.send({ User, auth: token });
             });
-            // resp.send(User);
         } else {
-            resp.send({ result: ' User Not found' });
+            return resp.send({ result: 'User not found' });
         }
     } else {
-        resp.send({ result: ' Missing data' });
+        return resp.send({ result: 'Missing data' });
     }
-
-
-
 });
-
 
 
 
